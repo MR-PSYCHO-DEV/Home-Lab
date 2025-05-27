@@ -5,7 +5,7 @@ all of the IP's are in 192.168.20.X
 IP      | name         | dns name
 1 - 9   | routers 
 20      | NAS          | nas.local
-30      | Docker| docker.local 
+31      | Docker| docker.local
 40      |Home-Assistan | HomeAssistan.local
 50      | proxmox  | Hyper.local
 51-79   | proxmox VM's that I make
