@@ -1,1 +1,0 @@
-sudo mount -t cifs -o username=mrpsycho,password=mrpsycho42254,uid=1000,gid=100,dir_mode=0770,file_mode=0660 //192.168.20.20/Media/anime/Anime ./anime
