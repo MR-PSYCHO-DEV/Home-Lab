@@ -1,0 +1,21 @@
+---
+version: "2.1"
+services:
+  fmd2:
+    image: banhcanh/docker-fmd2
+    container_name: fmd2
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - UMASK=022 #optional
+    ports:
+      - 6080:6080
+    volumes:
+      - path:/app/FMD2/userdata
+      - path:/app/FMD2/lua
+      - path:/app/FMD2/data
+      - path:/config/.wine
+      - path:/downloads
+
+    restart: unless-stopped

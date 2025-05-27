@@ -1,0 +1,22 @@
+#I dont use plex anymore
+---
+version: "2.1"
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Pacific/Auckland
+      - VERSION=docker
+    volumes:
+      - path/to/config:/config
+      - Media:/media
+    restart: unless-stopped
+
+#external volume for media
+volumes:
+  Media:
+    external: true

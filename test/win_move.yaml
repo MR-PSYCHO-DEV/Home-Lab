@@ -1,0 +1,7 @@
+- hosts: windows1
+  tasks:
+    - name: Copy File
+      win_copy:
+        src: C:\ansible_examples\helloworld.txt
+        dest: C:\ansible_examples\new
+        remote_src: yes

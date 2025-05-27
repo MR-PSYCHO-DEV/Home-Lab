@@ -1,0 +1,26 @@
+version: "2.1"
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - WEBUI_PORT=8080
+    volumes:
+      - /home/mrpsycho/docker/qbittorent/config/:/config
+      - /home/mrpsycho/mnt/downloads/qbittorrent/:/downloads/default_downloads
+      - /home/mrpsycho/mnt/anime/animedownloads:/downloads/downloads
+    #ports:
+    #  - 8080:8080
+    #  - 6881:6881
+    #  - 6881:6881/udp
+    restart: unless-stopped
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    name: frontend
+    external: true

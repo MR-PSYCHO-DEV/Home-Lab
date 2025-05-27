@@ -1,0 +1,9 @@
+- hosts: windows1
+  gather_facts: yes
+  tasks:
+    - name: Install thunderbird
+      win_chocolatey:
+        name: thunderbird
+        version: "115.0.1"
+        source: https://community.chocolatey.org/api/v2/
+        state: present

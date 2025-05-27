@@ -1,0 +1,6 @@
+- hosts: windows1
+  tasks:
+    - name: Install googlechrome
+      win_chocolatey:
+        name: googlechrome
+        state: absent

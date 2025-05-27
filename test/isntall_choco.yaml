@@ -1,0 +1,5 @@
+- hosts: windows1
+  gather_facts: yes
+  tasks:
+    - name: isntall choco
+      win_chocolatey: name=procexp  state=present

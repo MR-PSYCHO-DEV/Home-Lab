@@ -1,0 +1,19 @@
+version: "2"
+services:
+  kanboard:
+    image: kanboard/kanboard:latest
+    #ports:
+    #- "80:80"
+    networks:
+      - frontend
+    volumes:
+      - kanboard_data:/var/www/app/data
+      - kanboard_plugins:/var/www/app/plugins
+volumes:
+  kanboard_data:
+  kanboard_plugins:
+
+networks:
+  frontend:
+    name: frontend
+    external: true

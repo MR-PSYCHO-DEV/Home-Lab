@@ -1,0 +1,17 @@
+all of the IP's are in 192.168.20.X
+
+
+
+IP      | name         | dns name
+1 - 9   | routers 
+20      | NAS          | nas.local
+30      | Docker| docker.local 
+40      |Home-Assistan | HomeAssistan.local
+50      | proxmox  | Hyper.local
+51-79   | proxmox VM's that I make
+80 - 99 | for devices that I want a static ip for 
+100     | pihole dns   | pi.hole
+
+
+pihole setup | https://youtu.be/FnFtWsZ8IP0
+NAS setup | https://youtu.be/2Ja_e6CMkNY?t=580

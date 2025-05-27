@@ -1,0 +1,64 @@
+version: "2"
+services:
+  wekan:
+    image: ghcr.io/wekan/wekan:latest
+    container_name: wekan-app
+    # On CentOS 7 there is seccomp issue with glibc 6,
+    # so CentOS 7 users shoud use these security_opt seccomp:unconfined
+    # settings to get WeKan working. See:
+    #   - https://github.com/wekan/wekan/issues/4585
+    #   - https://github.com/wekan/wekan/issues/4587
+    #security_opt:
+    #  - seccomp:unconfined
+    restart: always
+    networks:
+      - wekan_network
+    environment:
+      - WRITABLE_PATH=/data
+      - MONGO_URL=mongodb://wekandb:27017/wekan
+      - ROOT_URL=http://wekan.local #   <=== using only at same laptop/desktop where Wekan is installed
+      - MAIL_URL=smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
+      - MAIL_FROM=Wekan Notifications <noreply.wekan@mydomain.com>
+      - WITH_API=true
+      - RICHER_CARD_COMMENT_EDITOR=false
+      - CARD_OPENED_WEBHOOK_ENABLED=false
+      - BIGEVENTS_PATTERN=NONE
+      - BROWSER_POLICY_ENABLED=true,card,commentId,swimlaneId,customerField,customFieldValue
+    depends_on:
+      - wekandb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - wekan-files:/data:rw
+
+  wekandb:
+    #-------------------------------------------------------------------------------------
+    # ==== MONGODB FROM DOCKER HUB ====
+    image: mongo:6
+    #-------------------------------------------------------------------------------------
+    container_name: wekan-db
+    restart: always
+    # command: mongod --oplogSize 128
+    # Syslog: mongod --syslog --oplogSize 128 --quiet
+    # Disable MongoDB logs:
+    command: mongod --logpath /dev/null --oplogSize 128 --quiet
+    networks:
+      - wekan_network
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - wekan-db:/data/db
+      - wekan-db-dump:/dump
+      #- /etc/timezone:/etc/timezone:ro # Do not use https://github.com/wekan/wekan/issues/5123
+
+volumes:
+  wekan-files:
+    driver: local
+  wekan-db:
+    driver: local
+  wekan-db-dump:
+    driver: local
+
+networks:
+  wekan_network:
+    name: wekan_network
+    external: true

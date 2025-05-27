@@ -1,0 +1,34 @@
+---
+version: "2.1"
+services:
+  piwigo:
+    image: lscr.io/linuxserver/piwigo:latest
+    container_name: piwigo
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /home/mrpsycho/docker/piwigo/config:/config
+      - /home/mrpsycho/docker/piwigo/gallery/:/gallery
+      - /home/mrpsycho/nas/media/images/piwigoimages/galleries:/gallery/galleries
+      - /home/mrpsycho/nas/media/images/piwigoimages/upload:/gallery/_data/i/upload
+    ports:
+      - 90:80
+    restart: unless-stopped
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
+      - TZ=Europe/London
+      - MYSQL_DATABASE=piwigo #optional
+      - MYSQL_USER=piwigo #optional
+      - MYSQL_PASSWORD=piwigo #optional
+      #- REMOTE_SQL=http://URL1/your.sql,https://URL2/your.sql #optional
+    volumes:
+      - /home/mrpsycho/docker/piwigo/mariadb/config:/config
+    restart: unless-stopped

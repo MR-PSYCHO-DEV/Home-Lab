@@ -1,0 +1,44 @@
+version: "3"
+services:
+  nginx-proxy-manager:
+    image: "jc21/nginx-proxy-manager:latest"
+    container_name: nginx-proxy-manager
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+      - "25565:25565"
+    environment:
+      DB_MYSQL_HOST: "mariadb"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "nginx-proxy-manager"
+      DB_MYSQL_NAME: "nginx-proxy-managerDB"
+      DB_MYSQL_PASSWORD: "hBibAVkvxEUqGgFyiMsMAjbHsErzWJKBYa"
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
+    networks:
+      - mariadbbackend
+      - frontend
+
+  mariadb:
+    image: "jc21/mariadb-aria:latest"
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: "3WyRzB9vQVfmd5jGqBshB3Nx75sXgbR8S9PH"
+      MYSQL_USER: "nginx-proxy-manager"
+      MYSQL_DATABASE: "nginx-proxy-managerDB"
+      MYSQL_PASSWORD: "hBibAVkvxEUqGgFyiMsMAjbHsErzWJKBYa"
+    volumes:
+      - /home/mrpsycho/docker/mariadb:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - mariadbbackend
+
+networks:
+  frontend:
+    name: frontend
+    external: true
+  mariadbbackend:
+    name: mariadbbackend

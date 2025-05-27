@@ -1,0 +1,17 @@
+version: "3.2"
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall
+    container_name: heimdall
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Pacific/Auckland
+    volumes:
+      - path:/config
+    restart: unless-stopped
+
+networks:
+  default:
+    name: nginxproxymanager_default
+    external: true
