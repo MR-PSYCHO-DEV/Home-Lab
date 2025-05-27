@@ -1,0 +1,21 @@
+choco install libreoffice
+choco install wireshark
+choco install ubisoft-connect
+choco install steam
+choco install qbittorrent
+choco install vscode
+choco install lghub
+choco install bluestacks
+choco install 7zip
+choco install wiztree
+choco install powertoys
+choco install cpu-z
+choco install eartrumpet
+choco install vlc
+choco install openjdk
+choco install python
+
+
+
+set AT_DOWNLOAD_URL=https://atlauncher.com/download/exe-setup
+curl AT_DOWNLOAD_URL
